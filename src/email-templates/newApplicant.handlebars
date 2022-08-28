@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h3> You positions:</h3>
+    {{#each array}}
+        <ul>
+            <li>Category: {{this.category}}</li>
+            <li>Level: {{this.level}}</li>
+            <li>Company: {{this.company}}</li>
+            <li>Japanese required: {{this.japaneseRequired}}</li>
+            <li>Description: {{this.description}}</li>
+        </ul>
+        <hr>
+    {{else}}
+            <h3>No content</h3>
+    {{/each}}
+</div>
+</body>
+</html>

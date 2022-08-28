@@ -39,8 +39,14 @@ const filterCreatePosition = (applicants, position) => {
 }
 const filterCreateApplicants = (positions, applicant) => {
     const level = positions.filter(c => c.level === applicant.level);
-    const categories = level.filter(c => c.category === (applicant.categories).find(b => b));
-    console.log(categories);
+    const category = level.filter((c) =>  applicant.categories.find((b) => c.category === b));
+    let japaneseKnowledge;
+    if (!applicant.japaneseKnowledge) {
+        japaneseKnowledge = category.filter(c => c.japaneseRequired === applicant.japaneseKnowledge);
+    } else {
+        japaneseKnowledge = category;
+    }
+    return japaneseKnowledge;
 }
 
 module.exports = {

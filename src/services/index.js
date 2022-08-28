@@ -4,12 +4,13 @@ const getArrays = (array, category, level, tag) => {
     return new Promise((resolve, reject) => {
         let filter;
         if (category && level && tag) {
-            filter = array.filter(c => c.category === category)
-                .filter(c => c.level === level)
-                .filter(c => c.description === tag);
+            filter = array.filter(
+                c => c.category === category
+                    && c.level === level
+                    && (c.description).includes(tag));
         }
         if (!category && !level && tag) {
-            filter = array.filter(c => c.description === tag);
+            filter = array.filter(c => (c.description).includes(tag));
         }
         if (category && !level && !tag) {
             filter = array.filter(c => c.category === category);
@@ -18,16 +19,13 @@ const getArrays = (array, category, level, tag) => {
             filter = array.filter(c => c.level === level);
         }
         if (category && level && !tag) {
-            filter = array.filter(c => c.category === category)
-                .filter(c => c.level === level);
+            filter = array.filter(c => c.category === category && c.level === level);
         }
         if (category && !level && tag) {
-            filter = array.filter(c => c.category === category)
-                .filter(c => c.description === tag);
+            filter = array.filter(c => c.category === category && (c.description).includes(tag));
         }
         if (!category && level && tag) {
-            filter = array.filter(c => c.level === level)
-                .filter(c => c.description === tag);
+            filter = array.filter(c => c.level === level && (c.description).includes(tag));
         }
         if (!category && !level && !tag) {
             filter = array;

@@ -3,6 +3,7 @@ const filepath = './src/db/positions.json';
 const positions = require('../db/positions.json');
 const applicants = require('../db/applicants.json');
 const repository = require('../repositories/index');
+const {emailService} = require("../services/emailService");
 
 const getPositions = async (req, res) => {
     const {category, level, tag} = req.query;
@@ -34,6 +35,7 @@ const postPosition = async (req, res) => {
                 content: position
         });
             const email = repository.filterCreatePosition(applicants, position);
+            emailService(position, email, 'newPosition');
         })
         .catch(err => res.status(500).json({ message: err.message }));
 }
@@ -60,6 +62,7 @@ const deletePosition = async (req, res) => {
                 message: `The position #${id} has been deleted`,
             });
             const email = repository.filterCreatePosition(applicants, position);
+            emailService(position, email, 'deletePosition');
         })
         .catch(err => {
             if (err.status) {

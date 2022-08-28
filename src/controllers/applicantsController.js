@@ -3,6 +3,7 @@ const filepath = './src/db/applicants.json';
 const applicants = require('../db/applicants.json');
 const positions = require('../db/positions.json');
 const repository = require('../repositories/index');
+const {emailService} = require('../services/emailService');
 
 const postApplicant = async (req, res) => {
     await applicantsService.createArray(req.body, applicants, filepath)
@@ -11,8 +12,9 @@ const postApplicant = async (req, res) => {
                 message: `The applicant #${applicant.id} has been created`,
                 content: applicant
             });
-            const email = repository.filterCreateApplicants(positions, applicant);
-            console.log(email);
+            const array = repository.filterCreateApplicants(positions, applicant);
+            const email = applicant.email;
+            emailService(array, email, 'applicant');
         })
         .catch(err => res.status(500).json({ message: err.message }));
 }
